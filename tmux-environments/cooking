@@ -1,0 +1,15 @@
+tmux has-session -t cooking
+if [ $? != 0 ]
+then
+  tmux new-session -s cooking -n editor -d
+  tmux send-keys -t cooking 'cd ~/projects/showz' C-m
+  tmux send-keys -t cooking 'vim .' C-m
+  tmux split-window -v -p 30 -t cooking
+  tmux send-keys -t cooking:1.2 'cd ~/projects/showz' C-m
+  tmux split-window -h -t cooking:1 
+  tmux new-window -n mongo -t cooking
+  tmux send-keys -t cooking:2 'cd ~/projects/showz' C-m
+  tmux select-window -t cooking:1
+  tmux attach -t cooking
+fi
+tmux attach -t cooking

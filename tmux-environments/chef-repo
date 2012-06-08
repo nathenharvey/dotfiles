@@ -1,0 +1,17 @@
+tmux has-session -t chef-repo
+if [ $? != 0 ]
+then
+  tmux new-session -s chef-repo -n editor -d
+  tmux send-keys -t chef-repo 'cd ~/projects/chef-repo' C-m
+  tmux send-keys -t chef-repo 'vim .' C-m
+  tmux split-window -v -p 30 -t chef-repo
+  tmux split-window -h -t chef-repo:1.1
+  tmux send-keys -t chef-repo:1.2 'cd ~/projects/chef-repo' C-m
+  tmux send-keys -t chef-repo:1.3 'cd ~/projects/chef-repo' C-m
+  tmux send-keys -t chef-repo:1.2 'showoff serve' C-m
+  tmux send-keys -t chef-repo:1.2 'cd ~/projects/chef-repo' C-m
+  tmux select-window -t chef-repo:1
+  tmux attach -t chef-repo
+else
+  tmux attach -t chef-repo
+fi

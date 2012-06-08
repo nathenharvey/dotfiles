@@ -1,0 +1,17 @@
+tmux has-session -t devopsdc
+if [ $? != 0 ]
+then
+  tmux new-session -s devopsdc -n editor -d
+  tmux send-keys -t devopsdc 'cd ~/projects/devopsdc' C-m
+  tmux send-keys -t devopsdc 'vim .' C-m
+  tmux split-window -v -p 30 -t devopsdc
+  tmux split-window -h -t devopsdc:1.1
+  tmux send-keys -t devopsdc:1.2 'cd ~/projects/devopsdc' C-m
+  tmux send-keys -t devopsdc:1.3 'cd ~/projects/devopsdc' C-m
+  tmux send-keys -t devopsdc:1.2 'showoff serve --port=9092' C-m
+  tmux send-keys -t devopsdc:1.2 'cd ~/projects/devopsdc' C-m
+  tmux select-window -t devopsdc:1
+  tmux attach -t devopsdc
+else
+  tmux attach -t devopsdc
+fi

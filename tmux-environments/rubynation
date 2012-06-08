@@ -1,0 +1,17 @@
+tmux has-session -t rubynation
+if [ $? != 0 ]
+then
+  tmux new-session -s rubynation -n editor -d
+  tmux send-keys -t rubynation 'cd ~/projects/cooking-with-chef' C-m
+  tmux send-keys -t rubynation 'vim .' C-m
+  tmux split-window -v -p 30 -t rubynation
+  tmux split-window -h -t rubynation:1.1
+  tmux send-keys -t rubynation:1.3 'cd ~/projects/cooking-with-chef' C-m
+  tmux send-keys -t rubynation:1.2 'cd ~/projects/cooking-with-chef/cooking-with-chef' C-m
+  tmux send-keys -t rubynation:1.2 'showoff serve' C-m
+  tmux send-keys -t rubynation:1.2 'cd ~/projects/cooking-with-chef' C-m
+  tmux select-window -t rubynation:1
+  tmux attach -t rubynation
+else
+  tmux attach -t rubynation
+fi

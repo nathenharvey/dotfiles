@@ -1,0 +1,17 @@
+tmux has-session -t clipart
+if [ $? != 0 ]
+then
+  tmux new-session -s clipart -n editor -d
+  tmux send-keys -t clipart 'cd ~/projects/clipart_management' C-m
+  tmux send-keys -t clipart 'vim .' C-m
+  tmux split-window -v -p 30 -t clipart
+  tmux split-window -h -t clipart:1.1
+  tmux send-keys -t clipart:1.2 'cd ~/projects/clipart_management' C-m
+  tmux send-keys -t clipart:1.3 'cd ~/projects/clipart_management' C-m
+  tmux send-keys -t clipart:1.2 'cd ~/projects/clipart_management' C-m
+  tmux selectp -t 3
+  tmux selectp -t 1
+  tmux attach -t clipart
+else
+  tmux attach -t clipart
+fi

@@ -1,0 +1,13 @@
+tmux has-session -t vertical
+if [ $? != 0 ]
+then
+  tmux new-session -s vertical -n editor -d
+  tmux split-window -h -t vertical
+  tmux split-window -h -t vertical
+  tmux select-layout -t vertical even-horizontal
+  tmux selectp -t 2
+  tmux selectp -t 1
+  tmux attach -t vertical
+else
+  tmux attach -t vertical
+fi

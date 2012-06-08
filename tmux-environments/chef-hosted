@@ -1,0 +1,17 @@
+tmux has-session -t chef-hosted
+if [ $? != 0 ]
+then
+  tmux new-session -s chef-hosted -n editor -d
+  tmux send-keys -t chef-hosted 'cd ~/projects/chef-hosted' C-m
+  tmux send-keys -t chef-hosted 'vim .' C-m
+  tmux split-window -v -p 30 -t chef-hosted
+  tmux split-window -h -t chef-hosted:1.1
+  tmux send-keys -t chef-hosted:1.2 'cd ~/projects/chef-hosted' C-m
+  tmux send-keys -t chef-hosted:1.3 'cd ~/projects/chef-hosted' C-m
+  tmux send-keys -t chef-hosted:1.2 'showoff serve' C-m
+  tmux send-keys -t chef-hosted:1.2 'cd ~/projects/chef-hosted' C-m
+  tmux select-window -t chef-hosted:1
+  tmux attach -t chef-hosted
+else
+  tmux attach -t chef-hosted
+fi

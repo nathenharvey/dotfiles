@@ -1,0 +1,17 @@
+tmux has-session -t chef-fundamentals
+if [ $? != 0 ]
+then
+  tmux new-session -s chef-fundamentals -n editor -d
+  tmux send-keys -t chef-fundamentals 'cd ~/projects/chef-fundamentals' C-m
+  tmux send-keys -t chef-fundamentals 'vim .' C-m
+  tmux split-window -v -p 30 -t chef-fundamentals
+  tmux split-window -h -t chef-fundamentals:1.1
+  tmux send-keys -t chef-fundamentals:1.2 'cd ~/projects/chef-fundamentals/slides' C-m
+  tmux send-keys -t chef-fundamentals:1.3 'cd ~/projects/chef-fundamentals' C-m
+  tmux send-keys -t chef-fundamentals:1.2 'showoff serve -p 9091' C-m
+  tmux send-keys -t chef-fundamentals:1.2 'cd ~/projects/chef-fundamentals' C-m
+  tmux select-window -t chef-fundamentals:1
+  tmux attach -t chef-fundamentals
+else
+  tmux attach -t chef-fundamentals
+fi

@@ -1,0 +1,16 @@
+tmux has-session -t blog
+if [ $? != 0 ]
+then
+  tmux new-session -s blog -n editor -d
+  tmux send-keys -t blog 'cd ~/projects/blog' C-m
+  tmux send-keys -t blog 'vim .' C-m
+  tmux split-window -v -p 30 -t blog
+  tmux split-window -h -t blog:1.1
+  tmux send-keys -t blog:1.2 'cd ~/projects/blog' C-m
+  tmux send-keys -t blog:1.3 'cd ~/projects/blog' C-m
+  tmux send-keys -t blog:1.2 'cd ~/projects/blog' C-m
+  tmux select-window -t blog:1
+  tmux attach -t blog
+else
+  tmux attach -t blog
+fi

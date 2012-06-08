@@ -1,0 +1,17 @@
+tmux has-session -t order-service
+if [ $? != 0 ]
+then
+  tmux new-session -s order-service -n editor -d
+  tmux send-keys -t order-service 'cd ~/projects/order_service' C-m
+  tmux send-keys -t order-service 'vim .' C-m
+  tmux split-window -v -p 30 -t order-service
+  tmux split-window -h -t order-service:1.1
+  tmux send-keys -t order-service:1.2 'cd ~/projects/order_service' C-m
+  tmux send-keys -t order-service:1.3 'cd ~/projects/order_service' C-m
+  tmux send-keys -t order-service:1.2 'cd ~/projects/order_service' C-m
+  tmux selectp -t 3
+  tmux selectp -t 1
+  tmux attach -t order-service
+else
+  tmux attach -t order-service
+fi

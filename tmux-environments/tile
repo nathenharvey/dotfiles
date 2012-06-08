@@ -1,0 +1,15 @@
+tmux has-session -t tile
+if [ $? != 0 ]
+then
+  tmux new-session -s tile -n editor -d
+  tmux split-window -h -t tile
+  tmux split-window -h -t tile
+  tmux split-window -h -t tile
+  tmux select-layout -t tile tile
+  tmux selectp -t 3
+  tmux selectp -t 2
+  tmux selectp -t 1
+  tmux attach -t tile
+else
+  tmux attach -t tile
+fi
